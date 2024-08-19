@@ -1,0 +1,13 @@
+{
+  "name": "fucore",
+  "url": "https://github.com/pecheny/fucore",
+  "license": "MIT",
+  "description": "Most widely used classes across fui and related libs.",
+  "version": "1.0.0",
+  "releasenote": "Initial release.",
+  "classPath": "src",
+  "contributors": [
+    "pecheny"
+  ]
+}
+ 
