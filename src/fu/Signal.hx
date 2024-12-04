@@ -44,14 +44,19 @@ class Signal<T:haxe.Constraints.Function> {
     }
 
     public macro function dispatch(signal, args:Array<haxe.macro.Expr>) {
+        // fix for hl, see https://github.com/HaxeFoundation/haxe/issues/11344
+        var iterExpr =
+        if(haxe.macro.Compiler.getConfiguration().platform == haxe.display.Display.Platform.Hl)
+           macro Lambda.iter($signal.asArray(), f -> f($a{args}));
+        else
+           macro for (listener in $signal.asArray()) listener($a{args});
         return macro {
             @:privateAccess $signal.isDispatching = true;
-            for (listener in $signal.asArray()) listener($a{args});
+            $iterExpr;
             @:privateAccess $signal.isDispatching = false;
             for (listener in @:privateAccess $signal.toRemove) @:privateAccess $signal.listeners.remove(@:privateAccess $signal.toRemove.shift());
         }
     }
-
     public inline function asArray() return listeners;
 
     public inline function remove(l:T) {

@@ -1,3 +1,3 @@
 package utils;
 
-typedef Signal = fu.Signal;
+typedef Signal<T:haxe.Constraints.Function> = fu.Signal<T>;
