@@ -97,10 +97,10 @@ class Rand {
 	}
 
 	/**
-		Create a randomized hxd.Rand (using a Std.random number as seed)
+		Create a randomized Rand (using a Std.random number as seed)
 	**/
 	public static function create() {
-		return new Rand(Std.random(0x7FFFFFFF));
+		return new utils.Rand(Std.random(0x7FFFFFFF));
 	}
 
 }
