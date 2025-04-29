@@ -46,7 +46,11 @@ class Signal<T:haxe.Constraints.Function> {
     public macro function dispatch(signal, args:Array<haxe.macro.Expr>) {
         // fix for hl, see https://github.com/HaxeFoundation/haxe/issues/11344
         var iterExpr =
+        #if (haxe_ver > "4.36")
+        if(haxe.macro.Compiler.getConfiguration().platform == haxe.macro.Compiler.Platform.Hl)
+        #else
         if(haxe.macro.Compiler.getConfiguration().platform == haxe.display.Display.Platform.Hl)
+        #end
            macro Lambda.iter($signal.asArray(), f -> f($a{args}));
         else
            macro for (listener in $signal.asArray()) listener($a{args});
